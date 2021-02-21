@@ -6,14 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import pl.karkaminski.unsplashgallery.data.Topic
 import pl.karkaminski.unsplashgallery.databinding.GalleryFragmentBinding
 import pl.karkaminski.unsplashgallery.ui.gallery.adapters.PhotoAdapter
 import pl.karkaminski.unsplashgallery.ui.gallery.adapters.TopicAdapter
 
-class GalleryFragment : Fragment() {
+class GalleryFragment : Fragment(), TopicAdapter.ItemClickListener {
 
     companion object {
-        fun newInstance() = GalleryFragment()
+        private const val TAG = "GalleryFragment"
     }
 
     private val viewModel by viewModels<GalleryViewModel>()
@@ -27,7 +28,16 @@ class GalleryFragment : Fragment() {
         binding = fragmentBinding
 
 
-        val topicAdapter = TopicAdapter()
+        viewModel.currentTopic.observe(viewLifecycleOwner,
+            {
+                currentTopic ->
+                if (currentTopic != null){
+                    fragmentBinding.topicNameTextView.text = currentTopic.title
+                    fragmentBinding.topicDescriptionTextView.text = currentTopic.description
+                }
+            })
+
+        val topicAdapter = TopicAdapter(this)
         fragmentBinding.topicsRecyclerView.adapter = topicAdapter
         viewModel.topicList.observe(viewLifecycleOwner,
             { list ->
@@ -59,4 +69,7 @@ class GalleryFragment : Fragment() {
         binding = null
     }
 
+    override fun onItemClicked(topic: Topic) {
+        viewModel.switchTopic(topic)
+    }
 }

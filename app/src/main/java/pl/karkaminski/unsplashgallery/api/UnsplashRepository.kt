@@ -44,10 +44,10 @@ class UnsplashRepository {
         return list
     }
 
-    fun getTopicPhotos(): MutableLiveData<List<Photo>> {
+    fun getTopicPhotos(topicId:String): MutableLiveData<List<Photo>> {
         var list = MutableLiveData<List<Photo>>()
 
-        unsplashAPI.getTopicPhotos()
+        unsplashAPI.getTopicPhotos(topicId)
             .enqueue(object : Callback<List<Photo>> {
                 override fun onResponse(call: Call<List<Photo>>, response: Response<List<Photo>>) {
                     list.postValue(response.body())

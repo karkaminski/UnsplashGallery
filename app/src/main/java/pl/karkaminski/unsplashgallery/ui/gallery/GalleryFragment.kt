@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import pl.karkaminski.unsplashgallery.data.Topic
 import pl.karkaminski.unsplashgallery.databinding.GalleryFragmentBinding
 
 class GalleryFragment : Fragment() {
@@ -26,14 +24,26 @@ class GalleryFragment : Fragment() {
         val fragmentBinding = GalleryFragmentBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
-        val adapter = TopicAdapter()
-        fragmentBinding.topicsRecyclerView.adapter = adapter
 
+        val topicAdapter = TopicAdapter()
+        fragmentBinding.topicsRecyclerView.adapter = topicAdapter
         viewModel.topicList.observe(viewLifecycleOwner,
             { list ->
-                adapter.apply {
+                topicAdapter.apply {
                     if (list != null){
                         topicList = list
+                        notifyDataSetChanged()
+                    }
+                }
+            })
+
+        val photoAdapter = PhotoAdapter()
+        fragmentBinding.photosRecyclerView.adapter = photoAdapter
+        viewModel.topicPhotos.observe(viewLifecycleOwner,
+            { list ->
+                photoAdapter.apply {
+                    if (list != null){
+                        photoList = list
                         notifyDataSetChanged()
                     }
                 }

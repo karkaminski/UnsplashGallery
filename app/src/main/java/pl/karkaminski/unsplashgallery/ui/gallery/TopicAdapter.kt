@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import pl.karkaminski.unsplashgallery.data.Topic
 import pl.karkaminski.unsplashgallery.databinding.ItemTopicBinding
 
-class TopicAdapter() :
+class TopicAdapter :
     RecyclerView.Adapter<TopicAdapter.TopicViewHolder>() {
 
     var topicList = listOf<Topic>()

@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         tools:context=".ui.gallery.GalleryFragment">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -49,9 +49,12 @@
                     tools:text="From epic drone shots to inspiring moments in nature, find free HD wallpapers worthy of your mobile and desktop screens. Finally."/>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/photos_recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_photo" />
             </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

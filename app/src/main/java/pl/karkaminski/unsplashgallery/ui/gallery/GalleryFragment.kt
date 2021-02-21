@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import pl.karkaminski.unsplashgallery.databinding.GalleryFragmentBinding
+import pl.karkaminski.unsplashgallery.ui.gallery.adapters.PhotoAdapter
+import pl.karkaminski.unsplashgallery.ui.gallery.adapters.TopicAdapter
 
 class GalleryFragment : Fragment() {
 

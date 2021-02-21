@@ -1,6 +1,7 @@
-package pl.karkaminski.unsplashgallery.ui.gallery
+package pl.karkaminski.unsplashgallery.ui.gallery.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -19,8 +20,19 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
     override fun getItemCount() = photoList.size
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
+
+        val photo = photoList[position]
+
+        holder.binding.apply {
+            if (photo.description != null) {
+                descriptionTextView.visibility = View.VISIBLE
+                descriptionTextView.text = photo.description
+            }
+            usernameTextView.text = photo.user.name
+        }
+
         Picasso.get()
-            .load(photoList[position].urls.regular)
+            .load(photo.urls.regular)
             .into(holder.binding.photoImageView)
     }
 

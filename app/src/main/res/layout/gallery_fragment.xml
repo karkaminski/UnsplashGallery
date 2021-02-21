@@ -36,22 +36,23 @@
                     android:text="Wallpapers"
                     android:textSize="30dp"
                     android:textStyle="bold"
-                    android:padding="8dp"/>
+                    android:paddingHorizontal="8dp"/>
 
                 <TextView
                     android:id="@+id/topic_description_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16dp"
-                    android:padding="8dp"
+                    android:paddingHorizontal="8dp"
                     android:lineSpacingExtra="5dp"
                     android:text="From epic drone shots to inspiring moments in nature, find free HD wallpapers worthy of your mobile and desktop screens. Finally."
                     tools:text="From epic drone shots to inspiring moments in nature, find free HD wallpapers worthy of your mobile and desktop screens. Finally."/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/photos_recycler_view"
+                    android:overScrollMode="never"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_photo" />
             </LinearLayout>

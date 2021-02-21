@@ -1,4 +1,4 @@
-package pl.karkaminski.unsplashgallery.ui.gallery
+package pl.karkaminski.unsplashgallery.ui.gallery.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -4,7 +4,7 @@ data class Photo(
     val id: String,
     val description: String,
     val urls: Urls,
-//    val user: User
+    val user: User
 ) {
     data class Urls(
         val raw: String,

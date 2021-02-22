@@ -8,7 +8,8 @@ import com.squareup.picasso.Picasso
 import pl.karkaminski.unsplashgallery.data.Photo
 import pl.karkaminski.unsplashgallery.databinding.ItemPhotoBinding
 
-class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+class PhotoAdapter(private val itemClickListener: ItemClickListener) :
+    RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
     var photoList = listOf<Photo>()
 
@@ -24,11 +25,10 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
         val photo = photoList[position]
 
         holder.binding.apply {
-            if (photo.description != null) {
-                descriptionTextView.visibility = View.VISIBLE
-                descriptionTextView.text = photo.description
-            }
             usernameTextView.text = photo.user.name
+            root.setOnClickListener {
+                itemClickListener.onItemClicked(photo)
+            }
         }
 
         Picasso.get()
@@ -36,8 +36,11 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
             .into(holder.binding.photoImageView)
     }
 
+    //////ViewHolder//////
     inner class PhotoViewHolder(val binding: ItemPhotoBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root)
 
+    interface ItemClickListener {
+        fun onItemClicked(photo: Photo)
     }
 }

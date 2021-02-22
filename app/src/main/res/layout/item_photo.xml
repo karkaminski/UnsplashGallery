@@ -16,15 +16,6 @@
             android:paddingHorizontal="8dp"
             tools:text="John Travolta"/>
 
-        <TextView
-            android:id="@+id/description_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="8dp"
-            android:visibility="gone"
-            tools:visibility="visible"
-            tools:text="A picture of android logo on green background"/>
-
         <ImageView
             android:id="@+id/photo_image_view"
             android:layout_width="match_parent"

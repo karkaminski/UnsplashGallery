@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import pl.karkaminski.unsplashgallery.data.Photo
 import pl.karkaminski.unsplashgallery.data.Topic
 import pl.karkaminski.unsplashgallery.databinding.GalleryFragmentBinding
 import pl.karkaminski.unsplashgallery.ui.gallery.adapters.PhotoAdapter
 import pl.karkaminski.unsplashgallery.ui.gallery.adapters.TopicAdapter
 
-class GalleryFragment : Fragment(), TopicAdapter.ItemClickListener {
+class GalleryFragment : Fragment(), TopicAdapter.ItemClickListener, PhotoAdapter.ItemClickListener {
 
     companion object {
         private const val TAG = "GalleryFragment"
@@ -49,7 +51,7 @@ class GalleryFragment : Fragment(), TopicAdapter.ItemClickListener {
                 }
             })
 
-        val photoAdapter = PhotoAdapter()
+        val photoAdapter = PhotoAdapter(this)
         fragmentBinding.photosRecyclerView.adapter = photoAdapter
         viewModel.topicPhotos.observe(viewLifecycleOwner,
             { list ->
@@ -69,7 +71,14 @@ class GalleryFragment : Fragment(), TopicAdapter.ItemClickListener {
         binding = null
     }
 
+    //Topic ItemClickListener
     override fun onItemClicked(topic: Topic) {
         viewModel.switchTopic(topic)
+    }
+
+    //Photo ItemClickListener
+    override fun onItemClicked(photo: Photo) {
+        val action = GalleryFragmentDirections.actionGalleryFragmentToPhotoDetailsFragment(photo)
+        findNavController().navigate(action)
     }
 }

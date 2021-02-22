@@ -9,5 +9,18 @@
         android:id="@+id/galleryFragment"
         android:name="pl.karkaminski.unsplashgallery.ui.gallery.GalleryFragment"
         android:label="gallery_fragment"
-        tools:layout="@layout/gallery_fragment" />
+        tools:layout="@layout/gallery_fragment" >
+        <action
+            android:id="@+id/action_galleryFragment_to_photoDetailsFragment"
+            app:destination="@id/photoDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoDetailsFragment"
+        android:name="pl.karkaminski.unsplashgallery.ui.photodetails.PhotoDetailsFragment"
+        android:label="photo_details_fragment"
+        tools:layout="@layout/photo_details_fragment" >
+        <argument
+            android:name="photo"
+            app:argType="pl.karkaminski.unsplashgallery.data.Photo" />
+    </fragment>
 </navigation>

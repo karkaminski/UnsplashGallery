@@ -3,6 +3,7 @@ package pl.karkaminski.unsplashgallery.ui.gallery.adapters
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import pl.karkaminski.unsplashgallery.data.Topic
 import pl.karkaminski.unsplashgallery.databinding.ItemTopicBinding
@@ -23,17 +24,16 @@ class TopicAdapter(private val itemClickListener: ItemClickListener) :
     override fun onBindViewHolder(holder: TopicViewHolder, position: Int) {
         val topic = topicList[position]
 
-        holder.binding.textView.text = topic.title
-        holder.binding.root.setOnClickListener {
-            itemClickListener.onItemClicked(topic)
-            selectedTopic = position
-            notifyDataSetChanged()
+        holder.binding.apply {
+            textView.text = topic.title
+            root.setOnClickListener {
+                itemClickListener.onItemClicked(topic)
+                selectedTopic = position
+                notifyDataSetChanged()
+            }
         }
 
-        holder.binding.textView.let {
-            if (position == selectedTopic) it.setTextColor(Color.RED) else it.setTextColor(Color.BLUE)
-        }
-
+        holder.binding.underscoreView.isVisible = position == selectedTopic
     }
 
     //////ViewHolder//////

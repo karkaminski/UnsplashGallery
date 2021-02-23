@@ -29,7 +29,6 @@ class GalleryFragment : Fragment(), TopicAdapter.ItemClickListener, PhotoAdapter
         val fragmentBinding = GalleryFragmentBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
-
         viewModel.currentTopic.observe(viewLifecycleOwner,
             {
                 currentTopic ->

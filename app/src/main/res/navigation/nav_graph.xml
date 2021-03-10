@@ -3,17 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/galleryFragment">
+    app:startDestination="@id/mainPagerFragment">
 
-    <fragment
-        android:id="@+id/galleryFragment"
-        android:name="pl.karkaminski.unsplashgallery.ui.gallery.GalleryFragment"
-        android:label="gallery_fragment"
-        tools:layout="@layout/gallery_fragment" >
-        <action
-            android:id="@+id/action_galleryFragment_to_photoDetailsFragment"
-            app:destination="@id/photoDetailsFragment" />
-    </fragment>
     <fragment
         android:id="@+id/photoDetailsFragment"
         android:name="pl.karkaminski.unsplashgallery.ui.photodetails.PhotoDetailsFragment"
@@ -22,5 +13,14 @@
         <argument
             android:name="photo"
             app:argType="pl.karkaminski.unsplashgallery.data.Photo" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainPagerFragment"
+        android:name="pl.karkaminski.unsplashgallery.ui.mainpager.MainPagerFragment"
+        android:label="MainPagerFragment"
+        tools:layout="@layout/gallery_fragment">
+        <action
+            android:id="@+id/action_mainPagerFragment_to_photoDetailsFragment"
+            app:destination="@id/photoDetailsFragment" />
     </fragment>
 </navigation>

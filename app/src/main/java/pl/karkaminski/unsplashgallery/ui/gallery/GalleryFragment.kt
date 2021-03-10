@@ -10,14 +10,10 @@ import androidx.navigation.fragment.findNavController
 import pl.karkaminski.unsplashgallery.data.Photo
 import pl.karkaminski.unsplashgallery.data.Topic
 import pl.karkaminski.unsplashgallery.databinding.GalleryFragmentBinding
-import pl.karkaminski.unsplashgallery.ui.gallery.adapters.PhotoAdapter
-import pl.karkaminski.unsplashgallery.ui.gallery.adapters.TopicAdapter
+import pl.karkaminski.unsplashgallery.ui.gallery.adapter.PhotoAdapter
+import pl.karkaminski.unsplashgallery.ui.mainpager.MainPagerFragmentDirections
 
-class GalleryFragment : Fragment(), TopicAdapter.ItemClickListener, PhotoAdapter.ItemClickListener {
-
-    companion object {
-        private const val TAG = "GalleryFragment"
-    }
+class GalleryFragment(private val topic: Topic) : Fragment(), PhotoAdapter.ItemClickListener {
 
     private val viewModel by viewModels<GalleryViewModel>()
     private var binding : GalleryFragmentBinding? = null
@@ -29,30 +25,15 @@ class GalleryFragment : Fragment(), TopicAdapter.ItemClickListener, PhotoAdapter
         val fragmentBinding = GalleryFragmentBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
-        viewModel.currentTopic.observe(viewLifecycleOwner,
-            {
-                currentTopic ->
-                if (currentTopic != null){
-                    fragmentBinding.topicNameTextView.text = currentTopic.title
-                    fragmentBinding.topicDescriptionTextView.text = currentTopic.description
-                }
-            })
-
-        val topicAdapter = TopicAdapter(this)
-        fragmentBinding.topicsRecyclerView.adapter = topicAdapter
-        viewModel.topicList.observe(viewLifecycleOwner,
-            { list ->
-                topicAdapter.apply {
-                    if (list != null){
-                        topicList = list
-                        notifyDataSetChanged()
-                    }
-                }
-            })
-
         val photoAdapter = PhotoAdapter(this)
-        fragmentBinding.photosRecyclerView.adapter = photoAdapter
-        viewModel.topicPhotos.observe(viewLifecycleOwner,
+
+        fragmentBinding.apply {
+            topicNameTextView.text = topic.title
+            topicDescriptionTextView.text = topic.description
+            photosRecyclerView.adapter = photoAdapter
+        }
+
+        viewModel.getTopicPhotos(topic).observe(viewLifecycleOwner,
             { list ->
                 photoAdapter.apply {
                     if (list != null){
@@ -70,14 +51,9 @@ class GalleryFragment : Fragment(), TopicAdapter.ItemClickListener, PhotoAdapter
         binding = null
     }
 
-    //Topic ItemClickListener
-    override fun onItemClicked(topic: Topic) {
-        viewModel.switchTopic(topic)
-    }
-
     //Photo ItemClickListener
     override fun onItemClicked(photo: Photo) {
-        val action = GalleryFragmentDirections.actionGalleryFragmentToPhotoDetailsFragment(photo)
+        val action = MainPagerFragmentDirections.actionMainPagerFragmentToPhotoDetailsFragment(photo)
         findNavController().navigate(action)
     }
 }

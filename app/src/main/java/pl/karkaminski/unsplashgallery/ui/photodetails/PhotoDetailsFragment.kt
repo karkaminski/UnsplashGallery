@@ -1,25 +1,16 @@
 package pl.karkaminski.unsplashgallery.ui.photodetails
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.squareup.picasso.Picasso
-import pl.karkaminski.unsplashgallery.R
 import pl.karkaminski.unsplashgallery.databinding.PhotoDetailsFragmentBinding
-import pl.karkaminski.unsplashgallery.ui.gallery.GalleryViewModel
 
 class PhotoDetailsFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = PhotoDetailsFragment()
-    }
-
-    private val viewModel by viewModels<PhotoDetailsViewModel>()
     private var binding : PhotoDetailsFragmentBinding? = null
 
     val args : PhotoDetailsFragmentArgs by navArgs()

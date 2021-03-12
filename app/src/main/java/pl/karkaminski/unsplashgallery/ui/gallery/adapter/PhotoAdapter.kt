@@ -1,11 +1,14 @@
 package pl.karkaminski.unsplashgallery.ui.gallery.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import pl.karkaminski.unsplashgallery.data.Photo
 import pl.karkaminski.unsplashgallery.databinding.ItemPhotoBinding
+import java.lang.Exception
 
 class PhotoAdapter(private val itemClickListener: ItemClickListener) :
     RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
@@ -28,11 +31,19 @@ class PhotoAdapter(private val itemClickListener: ItemClickListener) :
             root.setOnClickListener {
                 itemClickListener.onItemClicked(photo)
             }
-        }
-
+            
         Picasso.get()
             .load(photo.urls.regular)
-            .into(holder.binding.photoImageView)
+            .into(holder.binding.photoImageView, object : Callback {
+                override fun onSuccess() {
+                    holder.binding.linearLayout.visibility = View.VISIBLE
+                }
+
+                override fun onError(e: Exception?) {
+                    holder.binding.linearLayout.visibility = View.GONE
+                }
+            })
+        }
     }
 
     //////ViewHolder//////

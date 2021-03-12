@@ -1,9 +1,11 @@
 package pl.karkaminski.unsplashgallery.ui.gallery
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -29,7 +31,8 @@ class GalleryFragment(private val topic: Topic) : Fragment(), PhotoAdapter.ItemC
 
         fragmentBinding.apply {
             topicNameTextView.text = topic.title
-            topicDescriptionTextView.text = topic.description
+            topicDescriptionTextView.text = HtmlCompat.fromHtml(topic.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
+            topicDescriptionTextView.movementMethod = LinkMovementMethod.getInstance()
             photosRecyclerView.adapter = photoAdapter
         }
 
